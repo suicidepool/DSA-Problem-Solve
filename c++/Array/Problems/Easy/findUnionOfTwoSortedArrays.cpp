@@ -1,21 +1,24 @@
 // union of two sorted arrays
 #include <iostream>
 #include <vector>
-#include <set>
+#include <map>
 using namespace std;
 
 vector<int> unionIt(int arr1[],int arr2[], int n, int m){
-    set<int> st;
+    map<int,int> mp;
     vector<int> Union;
+
     for(int i = 0; i < n; i++){
-        st.insert(arr1[i]);
+        mp[arr1[i]]++;
     }
-    for(int i = 0; i < m; i++){
-        st.insert(arr2[i]);
+    for(int i = 0;i < m; i++){
+        mp[arr2[i]]++;
     }
-    for(int element : st){
-        Union.push_back(element);
+
+    for(const auto& pair: mp){
+        Union.push_back(pair.first);
     }
+
     return Union;
 }
 
