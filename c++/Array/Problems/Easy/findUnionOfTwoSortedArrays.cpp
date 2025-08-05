@@ -1,25 +1,44 @@
 // union of two sorted arrays
 #include <iostream>
 #include <vector>
-#include <map>
 using namespace std;
 
 vector<int> unionIt(int arr1[],int arr2[], int n, int m){
-    map<int,int> mp;
     vector<int> Union;
+    int i = 0;
+    int j = 0;
 
-    for(int i = 0; i < n; i++){
-        mp[arr1[i]]++;
-    }
-    for(int i = 0;i < m; i++){
-        mp[arr2[i]]++;
+    while(i < n && j < m){
+        if(arr1[i] < arr2[j]){
+            if(i == 0 || Union.back() != arr1[i]){
+                Union.push_back(arr1[i]);
+            }
+            i++;
+        }
+        else{
+            if(j == 0 || Union.back() != arr2[j]){
+                Union.push_back(arr2[j]);
+            }
+            j++;
+        }
     }
 
-    for(const auto& pair: mp){
-        Union.push_back(pair.first);
+    while(i < n){
+        if(Union.back() != arr1[i]){
+            Union.push_back(arr1[i]);
+        }
+        i++;
+    }
+
+    while(j < m){
+        if(Union.back() != arr2[j]){
+            Union.push_back(arr2[j]);
+        }
+        j++;
     }
 
     return Union;
+
 }
 
 int main()
