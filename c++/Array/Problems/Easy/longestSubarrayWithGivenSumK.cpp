@@ -1,22 +1,36 @@
 #include <iostream>
 using namespace std;
 
-int findLongestSubarraySum(int arr[], int n, int k){
+int findLongestSubarraySum(int arr[], int n, int k)
+{
     int sumLength = 0;
+    int i = 0;
+    int j = 0;
 
-    for(int i = 0; i < n; i++){
-        int sum = 0;
-        for(int j = i; j < n; j++){
+    int sum = 0;
+
+    while (j < n)
+    {
+
+        if (sum == k)
+        {
+            int len = j - i;
+            if (len > sumLength)
+            {
+                sumLength = len;
+            }
+            j++;
             sum += arr[j];
-            if(sum == k){
-                int len = j - i + 1;
-                if(sumLength < len){
-                    sumLength = len;
-                }
-            }
-            else if(sum > k){
-                break;
-            }
+        }
+        else if (sum > k)
+        {
+            sum -= arr[i];
+            i++;
+        }
+        else
+        {
+            sum += arr[j];
+            j++;
         }
     }
 
